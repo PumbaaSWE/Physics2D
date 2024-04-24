@@ -17,17 +17,22 @@ public class EduForces : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        DoForces();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        Debug.DrawLine(new Vector3(-1000, fluidLevel, -0.1f), new Vector3(1000, fluidLevel, -0.1f), Color.red);
     }
 
     // Update is called once per frame
     void FixedUpdate()
+    {
+        DoForces();
+    }
+
+    private void DoForces()
     {
         EduRigidBody[] rbs = FindObjectsOfType<EduRigidBody>();
         for (int i = 0; i < rbs.Length; i++)
@@ -48,6 +53,36 @@ public class EduForces : MonoBehaviour
     private void ApplyFloaty(EduRigidBody rb)
     {
         //
+        float dy = rb.transform.position.y - fluidLevel;
+        float r = rb.GetComponent<EduCircleCollider>().ScaledRadius(); // eh..
+        float V = Mathy.AreaOfCircle(r); 
+        if (dy >= r)
+        {
+            //no floating force, we above the surface
+            Debug.Log("Fully above");
+            return;
+        }
+        else if (dy <= r)
+        {
+            //we are fully submerged
+            Debug.Log("Fully submerged");
+            //return;
+        }
+        else
+        {
+            if(dy > 0)
+            {
+                V = Mathy.AreaOfCircleSegment(r, dy);
+            }
+            else
+            {
+                V = V - Mathy.AreaOfCircleSegment(r, r+dy);
+            }
+        }
+        Debug.Log(V / Mathy.AreaOfCircle(r) + " Area fsubmerged");
+        //Fl = Vobj * pfluid * g;
+        Vector2 F = V * fluidDencity * -gravity;
+        rb.ApplyForce(F);
     }
 
     private void ApplyGravity(EduRigidBody rb)
