@@ -43,7 +43,7 @@ public class EduCollisionDetection : MonoBehaviour
                     collision.B = circles[c].GetComponent<EduRigidBody>();
                     collision.A = null;// lines[i].GetComponent<EduRigidBody>();
                     collisions.Add(collision);
-                    Debug.DrawLine(collision.Position, collision.Position + collision.Normal, Color.red);
+                    //Debug.DrawLine(collision.Position, collision.Position + collision.Normal, Color.red);
                 }
             }
         }
@@ -70,14 +70,17 @@ public class EduCollisionDetection : MonoBehaviour
     {
         Vector2 d = c2.transform.position - c1.transform.position; //relative position -> d for delta
         float sqrDist = Vector2.SqrMagnitude(d);
-        float r = c1.radius + c2.radius;
+        float r = c1.ScaledRadius() + c2.ScaledRadius();
 
         if(sqrDist <= r * r)
         {  
             collision = new EduCollision();
             float dist = Mathf.Sqrt(sqrDist);
             collision.Position = d / 2; // in relation to c1... (c1+c2)/2 for world pos
-            collision.Normal = d / dist; //d.normalized;
+
+            if (Mathf.Abs(dist) < 0.0001f) collision.Normal = Vector2.up;
+            else collision.Normal = d / dist; //d.normalized;
+
             collision.Depth = r - dist; //amount of overlap
             return true;
         }
@@ -90,18 +93,18 @@ public class EduCollisionDetection : MonoBehaviour
         Vector2 cp = l.ClosestPoint(c.Center);
         Vector2 d = c.Center - cp;
 
-        Debug.DrawLine(c.Center, cp, Color.magenta);
+        //Debug.DrawLine(c.Center, cp, Color.magenta);
 
 
         float sqrDist = Vector2.SqrMagnitude(d);
-        if(sqrDist <= c.radius * c.radius)
+        if(sqrDist <= c.ScaledRadius() * c.ScaledRadius())
         {
             //we have collided with the line;
             collision = new EduCollision();
             float dist = Mathf.Sqrt(sqrDist);
             collision.Position = cp;
             collision.Normal = d / dist; //d.normalized;
-            collision.Depth = c.radius - dist; //amount of overlap
+            collision.Depth = c.ScaledRadius() - dist; //amount of overlap
             return true;
         }
         collision = default;

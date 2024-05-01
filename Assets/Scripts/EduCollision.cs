@@ -23,19 +23,15 @@ public class EduCollision
         float invMassA = A ? 1 / A.mass : 0;
         float invMassB = B ? 1 / B.mass : 0;
 
-        float eA = A ? A.restitution : 1; //perfect bouncyness
+        float eA = A ? A.restitution : 1; //perfect bouncyness if rb is missing
         float eB = B ? B.restitution : 1;
 
         float e = eA * eB; //whatever method
 
-
-        //float massSum = (B ? B.mass : 0) + (A ? A.mass : 0);
-        //float massProd = (B ? B.mass : 1) * (A ? A.mass : 1);
         float J = (1 + e) * contactVel;
-        //J /= invMassA + invMassB; //I dont get this... was found on lnks
 
-        float value = 0;//need it for pos corr later
-        if(A && B)
+        float value;
+        if (A && B)
         {
             value = (A.mass * B.mass) / (A.mass + B.mass);
         }
@@ -45,17 +41,12 @@ public class EduCollision
         }
 
         Vector2 impulse = J * value * Normal;
-
-        Debug.DrawRay(Position, impulse, Color.cyan);
-
         if (A) A.velocity += impulse * invMassA;
         if (B) B.velocity -= impulse * invMassB;
 
-        //to correct positions I need the transform of objects!!!
         float p =  erp * value * Depth;
         if (A) A.transform.position -= ToVec3(p * invMassA * Normal);
         if (B) B.transform.position += ToVec3(p * invMassB * Normal);
-
     }
 
     public static Vector3 ToVec3(Vector2 v, float z = 0)
