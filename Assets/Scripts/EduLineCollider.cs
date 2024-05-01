@@ -17,7 +17,7 @@ public class EduLineCollider : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        UpdatePoints();
+        UpdatePoints(); // really only needed if position/rotation changes...
     }
 
     private void UpdatePoints()
@@ -44,6 +44,7 @@ public class EduLineCollider : MonoBehaviour
             }
             else
             {
+                t /= denom;
                 return p1 + t * d;
             }
         }
@@ -61,5 +62,14 @@ public class EduLineCollider : MonoBehaviour
         Gizmos.DrawSphere(p1, .1f);
         Gizmos.color = Color.green;
         Gizmos.DrawSphere(p2, .1f);
+    }
+
+    public void OnDrawGizmos()
+    {
+        float hl = length / 2;
+        Vector3 a = transform.position - transform.right * hl;
+        Vector3 b = transform.position + transform.right * hl;
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawLine(a, b);
     }
 }

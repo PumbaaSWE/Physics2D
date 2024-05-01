@@ -76,7 +76,7 @@ public class EduForces : MonoBehaviour
             }
             else
             {
-                V = V - Mathy.AreaOfCircleSegment(r, r+dy);
+                V -= Mathy.AreaOfCircleSegment(r, r+dy);
             }
         }
         Debug.Log(V / Mathy.AreaOfCircle(r) + " Area fsubmerged");
