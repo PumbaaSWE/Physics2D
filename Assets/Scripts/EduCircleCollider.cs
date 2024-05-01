@@ -5,6 +5,8 @@ public class EduCircleCollider : MonoBehaviour
 
     public float radius = 1;
     [Tooltip("kg/m^3")]public float dencity = 1;
+
+    public Vector2 Center => transform.position;
     
     // Start is called before the first frame update
     void Start()
