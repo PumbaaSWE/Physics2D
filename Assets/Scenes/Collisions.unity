@@ -1390,7 +1390,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   iterations: 1
-  separation: 0.03
+  separationSlop: 0.03
   erp: 0.5
 --- !u!114 &1285845573
 MonoBehaviour:

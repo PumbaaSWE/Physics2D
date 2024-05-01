@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class EduForces : MonoBehaviour
@@ -13,17 +12,30 @@ public class EduForces : MonoBehaviour
     public bool UseBouyance = false;
     public float fluidDencity = 1;
     public float fluidLevel = 0;
+    private LineRenderer lineRenderer;
+
+
 
     // Start is called before the first frame update
     void Start()
     {
+        lineRenderer = GetComponent<LineRenderer>();
+        lineRenderer.positionCount = 2;
+        lineRenderer.startWidth = .1f;
+
         DoForces();
+
     }
 
     // Update is called once per frame
     void Update()
     {
         Debug.DrawLine(new Vector3(-1000, fluidLevel, -0.1f), new Vector3(1000, fluidLevel, -0.1f), Color.red);
+
+
+        lineRenderer.SetPosition(0, new Vector3(-1000, fluidLevel, -0.1f));
+        lineRenderer.SetPosition(1, new Vector3(1000, fluidLevel, -0.1f));
+
     }
 
     // Update is called once per frame
@@ -59,27 +71,28 @@ public class EduForces : MonoBehaviour
         if (dy >= r)
         {
             //no floating force, we above the surface
-            Debug.Log("Fully above");
+            Debug.Log("Fully above dy = " + dy);
             return;
         }
-        else if (dy <= r)
+        else if (dy <= -r)
         {
             //we are fully submerged
-            Debug.Log("Fully submerged");
+            Debug.Log("Fully submerged dy = " + dy);
             //return;
         }
         else
         {
             if(dy > 0)
             {
-                V = Mathy.AreaOfCircleSegment(r, dy);
+                V = Mathy.AreaOfCircleSegment(r, r-dy);
             }
             else
             {
                 V -= Mathy.AreaOfCircleSegment(r, r+dy);
             }
         }
-        Debug.Log(V / Mathy.AreaOfCircle(r) + " Area fsubmerged");
+        //Debug.Log(V / Mathy.AreaOfCircle(r) + " Area submerged");
+        Debug.DrawLine(rb.transform.position, rb.transform.position.WithY(fluidLevel), Color.magenta);
         //Fl = Vobj * pfluid * g;
         Vector2 F = V * fluidDencity * -gravity;
         rb.ApplyForce(F);

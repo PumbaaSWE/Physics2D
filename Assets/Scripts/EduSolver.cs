@@ -5,7 +5,7 @@ using UnityEngine;
 public class EduSolver : MonoBehaviour
 {
     public int iterations = 1;
-    public float separation = 0.03f;
+    public float separationSlop = 0.03f;
     [Range(0,1)]public float erp = 0.5f;
 
     // Start is called before the first frame update
@@ -22,9 +22,14 @@ public class EduSolver : MonoBehaviour
 
     public void Solve(List<EduCollision> collisions)
     {
-        for (int i = 0; i < collisions.Count; i++)
+
+        for (int i = 0; i < iterations; i++)
         {
-            collisions[i].Solve(erp);
+            for (int c = 0; c < collisions.Count; c++)
+            {
+                collisions[c].Solve(erp);
+            }
         }
     }
+
 }

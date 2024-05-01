@@ -30,21 +30,33 @@ public class EduCollision
 
         float J = (1 + e) * contactVel;
 
-        float value;
-        if (A && B)
-        {
-            value = (A.mass * B.mass) / (A.mass + B.mass);
-        }
-        else
-        {
-            value = A ? A.mass : B.mass; //lim_(x->inf) (a*x)/(a+x)  is = a...
-        }
+        float invInvMassSum = 1f / (invMassA + invMassB); //this == mA*mB/(mA+mB)
 
-        Vector2 impulse = J * value * Normal;
+        J *= invInvMassSum; 
+
+        //float value;
+        //if (A && B)
+        //{
+        //    value = (A.mass * B.mass) / (A.mass + B.mass);
+        //}
+        //else
+        //{
+        //    value = A ? A.mass : B.mass; //lim_(x->inf) (a*x)/(a+x)  is = a...
+        //}
+
+
+        /*
+         * ab/(a+b) = 1/(1/a+1/b)
+         * 
+         * 1/(1/a+1/b) => 1/(b/ab + a/ab) => 1/((a+b)/ab) => ab/(a+b)
+         */
+
+        Vector2 impulse = J * Normal;
         if (A) A.velocity += impulse * invMassA;
         if (B) B.velocity -= impulse * invMassB;
 
-        float p =  erp * value * Depth;
+        //positional correction
+        float p =  erp * Depth * invInvMassSum;
         if (A) A.transform.position -= ToVec3(p * invMassA * Normal);
         if (B) B.transform.position += ToVec3(p * invMassB * Normal);
     }
