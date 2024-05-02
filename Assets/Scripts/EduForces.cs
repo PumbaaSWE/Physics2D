@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[RequireComponent(typeof(LineRenderer))]
 public class EduForces : MonoBehaviour
 {
 
@@ -32,9 +33,12 @@ public class EduForces : MonoBehaviour
     {
         Debug.DrawLine(new Vector3(-1000, fluidLevel, -0.1f), new Vector3(1000, fluidLevel, -0.1f), Color.red);
 
+        if (UseBouyance && lineRenderer)
+        {
 
-        lineRenderer.SetPosition(0, new Vector3(-1000, fluidLevel, -0.1f));
-        lineRenderer.SetPosition(1, new Vector3(1000, fluidLevel, -0.1f));
+            lineRenderer.SetPosition(0, new Vector3(-1000, fluidLevel, -0.1f));
+            lineRenderer.SetPosition(1, new Vector3(1000, fluidLevel, -0.1f));
+        }
 
     }
 

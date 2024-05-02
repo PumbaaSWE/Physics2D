@@ -11,7 +11,7 @@ public class EduLineCollider : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        UpdatePoints();
     }
 
     

@@ -30,4 +30,9 @@ public static class Mathy
     {
         return new Vector3(v.x, y, v.z);
     }
+
+    public static Vector3 WithZ(this Vector3 v, float z = 0)
+    {
+        return new Vector3(v.x, v.y, z);
+    }
 }
