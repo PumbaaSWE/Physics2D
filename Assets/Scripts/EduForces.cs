@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 [RequireComponent(typeof(LineRenderer))]
@@ -6,6 +7,10 @@ public class EduForces : MonoBehaviour
 
     public bool UseGravity = true;
     public Vector2 gravity = new Vector2(0, -9.82f);
+    public bool UseLinearDrag = false;
+    public float LinearDragCoeff = 0;
+    public bool UseAngularDrag = false;
+    public float AngularDragCoeff = 0;
     public bool UseBrakeTorque = false;
     public float brakeTorque = 0;
     public bool UseWind = false;
@@ -55,10 +60,24 @@ public class EduForces : MonoBehaviour
         {
             EduRigidBody rb = rbs[i];
             if (UseGravity) ApplyGravity(rb);
+            if (UseLinearDrag) ApplyLinearDrag(rb);
+            if (UseAngularDrag) ApplyAngularDrag(rb);
             if (UseBrakeTorque) ApplyBrorque(rb);
             if (UseWind) ApplyWind(rb);
             if (UseBouyance) ApplyFloaty(rb);
         }
+    }
+
+    private void ApplyAngularDrag(EduRigidBody rb)
+    {
+        float torque = -AngularDragCoeff * rb.angularVelocity;
+        rb.ApplyTorque(torque);
+    }
+
+    private void ApplyLinearDrag(EduRigidBody rb)
+    {
+        Vector3 drag = -LinearDragCoeff * rb.velocity;
+        rb.ApplyForce(drag);
     }
 
     private void ApplyBrorque(EduRigidBody rb)

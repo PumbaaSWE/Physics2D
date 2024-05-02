@@ -40,8 +40,8 @@ public class EduCollisionDetection : MonoBehaviour
                     //resolve line vs circle
                     //collision.A = circles[c].gameObject;
                     //collision.B = lines[i].gameObject;
-                    collision.B = circles[c].GetComponent<EduRigidBody>();
                     collision.A = null;// lines[i].GetComponent<EduRigidBody>();
+                    collision.B = circles[c].GetComponent<EduRigidBody>();
                     collisions.Add(collision);
                     //Debug.DrawLine(collision.Position, collision.Position + collision.Normal, Color.red);
                 }

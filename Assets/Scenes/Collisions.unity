@@ -1427,12 +1427,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UseGravity: 1
   gravity: {x: 0, y: -9.82}
+  UseLinearDrag: 1
+  LinearDragCoeff: 0.4
   UseBrakeTorque: 0
   brakeTorque: 0
   UseWind: 0
   wind: {x: 0, y: 0}
-  UseBouyance: 0
-  fluidDencity: 1
+  UseBouyance: 1
+  fluidDencity: 3
   fluidLevel: 0
 --- !u!120 &1285845574
 LineRenderer:
@@ -2010,6 +2012,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   circle: {fileID: 1290068160734764047, guid: 56070876d1bf309409d1bd104ee8856d, type: 3}
   eduLine: {fileID: 8838062222989958587, guid: 26d46700c3a0acf498f682f0897aaeb8, type: 3}
+  minLength: 0.5
 --- !u!4 &1558770756
 Transform:
   m_ObjectHideFlags: 0
