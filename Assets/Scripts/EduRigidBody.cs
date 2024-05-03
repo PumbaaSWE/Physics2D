@@ -73,6 +73,15 @@ public class EduRigidBody : MonoBehaviour
         accumulatedForces += force;
     }
 
+
+    public void ApplyExplosionForce(float force, Vector2 origin, float radius)
+    {
+        Vector2 d = (Vector2)transform.position - origin;
+        float l = d.magnitude;
+        float actualForce = Mathf.Lerp(0, force, l / radius);      
+        accumulatedForces += actualForce * (d / l);
+    }
+
     public void ApplyTorque(float torque)
     {
         accumulatedTorques += torque;

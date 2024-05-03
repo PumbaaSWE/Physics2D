@@ -1,20 +1,23 @@
-using System;
 using UnityEngine;
 
 [RequireComponent(typeof(LineRenderer))]
 public class EduForces : MonoBehaviour
 {
-
+    [Header("Gravity Settings")]
     public bool UseGravity = true;
     public Vector2 gravity = new Vector2(0, -9.82f);
+    [Header("Drag Settings")]
     public bool UseLinearDrag = false;
     public float LinearDragCoeff = 0;
     public bool UseAngularDrag = false;
     public float AngularDragCoeff = 0;
+    [Header("Break Torque? Settings")]
     public bool UseBrakeTorque = false;
     public float brakeTorque = 0;
+    [Header("Wind Settings")]
     public bool UseWind = false;
-    public Vector2 wind = new Vector2(0, 0);
+    //public Vector2 wind = new Vector2(0, 0);
+    [Header("Bouyancy Settings")]
     public bool UseBouyance = false;
     public float fluidDencity = 1;
     public float fluidLevel = 0;
@@ -40,9 +43,13 @@ public class EduForces : MonoBehaviour
 
         if (UseBouyance && lineRenderer)
         {
-
+            lineRenderer.enabled = true;
             lineRenderer.SetPosition(0, new Vector3(-1000, fluidLevel, -0.1f));
             lineRenderer.SetPosition(1, new Vector3(1000, fluidLevel, -0.1f));
+        }
+        else
+        {
+            lineRenderer.enabled = false;
         }
 
     }
@@ -132,7 +139,7 @@ public class EduForces : MonoBehaviour
         EduWindZone[] wz = FindObjectsOfType<EduWindZone>();
         for (int i = 0; i < wz.Length; i++)
         {
-            rb.ApplyForce(wz[i].Sample(rb.transform.position));
+            rb.ApplyForce(wz[i].SampleBilinear(rb.transform.position));
         }
        
     }

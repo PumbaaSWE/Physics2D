@@ -42,7 +42,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3105305999801950701}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 34edb51d98ff71d4788911ff2ec3967d, type: 3}
   m_Name: 
@@ -57,7 +57,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3105305999801950701}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0b15dab6e56e0de488717e1ba6bc1cd4, type: 3}
   m_Name: 
@@ -65,8 +65,11 @@ MonoBehaviour:
   iterations: 1
   separationSlop: 0.03
   erp: 0.5
+  DoAdvanced: 0
   DoFriction: 0
   Rotation: 0
+  DynamicFriction: 0
+  StaticFriction: 0
 --- !u!114 &2924856826472949277
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -79,17 +82,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35eacf49973f8584a8b42dc06a7dad99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UseGravity: 1
+  UseGravity: 0
   gravity: {x: 0, y: -9.82}
-  UseLinearDrag: 1
+  UseLinearDrag: 0
   LinearDragCoeff: 0.4
   UseAngularDrag: 0
   AngularDragCoeff: 0
-  UseBrakeTorque: 0
-  brakeTorque: 0
+  UseBrakeTorque: 1
+  brakeTorque: -150
   UseWind: 0
-  wind: {x: 0, y: 0}
-  UseBouyance: 1
+  UseBouyance: 0
   fluidDencity: 3
   fluidLevel: 0
 --- !u!120 &6479258153641541534

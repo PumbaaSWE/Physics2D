@@ -115,8 +115,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   restitution: 0.7
   skipFrames: 0
-  staticFriction: 1
-  dynamicFriction: 1
+  staticFriction: 0.6
+  dynamicFriction: 0.4
   mass: 1
   inertia: 1
   velocity: {x: 0, y: 0}
@@ -168,7 +168,7 @@ TrailRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: -1
   m_Time: 1
   m_PreviewTimeScale: 1
   m_Parameters:

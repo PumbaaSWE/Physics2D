@@ -1,17 +1,18 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class EduSolver : MonoBehaviour
 {
     public int iterations = 1;
-    public float separationSlop = 0.03f;
+    [Range(0, .1f)] public float separationSlop = 0.03f;
     [Range(0,1)]public float erp = 0.5f;
 
+    [Header("Advanced Settings")]
     public bool DoAdvanced;
     public bool DoFriction;
     public bool Rotation;
 
+    [Header("Debugging Stuff")]
     public bool DynamicFriction;
     public bool StaticFriction;
 
