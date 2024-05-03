@@ -35,4 +35,32 @@ public static class Mathy
     {
         return new Vector3(v.x, v.y, z);
     }
+
+ 
+    public static float Cross(Vector2 a, Vector2 b)
+    {
+        return a.x * b.y - a.y * b.x;
+    }
+
+    /// <summary>
+    /// 2D
+    /// </summary>
+    /// <param name="a"></param>
+    /// <param name="s"></param>
+    /// <returns></returns>
+    public static Vector2 Cross(Vector2 a, float s)
+    {
+        return new Vector2(s * a.y, -s * a.x);
+    }
+    /// <summary>
+    /// Fake 2d cross prod, think it's 3d with 0s filled..
+    /// </summary>
+    /// <param name="s"></param>
+    /// <param name="a"></param>
+    /// <returns></returns>
+    public static Vector2 Cross(float s, Vector2 a)
+    {
+        return new Vector2(-s * a.y, s * a.x);
+    }
+
 }

@@ -1,15 +1,17 @@
 using UnityEngine;
 
-public class EduCollision
+public sealed class EduCollision
 {
     public Vector2 Position;
+    public Vector2 Position2;
+    public int ContactCount = 1;
     public Vector2 Normal;
     public float Depth;
     public EduRigidBody A;
     public EduRigidBody B;
 
 
-    public void Solve(float erp)
+    public void Solve(float erp, float slop)
     {
         // its possible for a rigid body to be null
         // if both we go back!
@@ -56,7 +58,7 @@ public class EduCollision
         if (B) B.velocity -= impulse * invMassB;
 
         //positional correction
-        float p =  erp * Depth * invInvMassSum;
+        float p =  erp * Mathf.Max(Depth - slop, 0.0f) * invInvMassSum;
         if (A) A.transform.position -= ToVec3(p * invMassA * Normal);
         if (B) B.transform.position += ToVec3(p * invMassB * Normal);
     }

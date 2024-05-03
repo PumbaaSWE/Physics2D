@@ -6,6 +6,8 @@ public class EduRigidBody : MonoBehaviour
     public float restitution = 1;
     public int skipFrames = 0;
     private int skipped;
+    public float staticFriction = 0.6f;
+    public float dynamicFriction = 0.4f;
 
     [Header("Computed with Collider")]
     public float mass = 1;
@@ -24,7 +26,6 @@ public class EduRigidBody : MonoBehaviour
     public float Etot;
 
 
-    
     // Start is called before the first frame update
     void Start()
     {
@@ -64,7 +65,7 @@ public class EduRigidBody : MonoBehaviour
 
         //compute positions and rotations
         transform.position = transform.position + new Vector3(velocity.x * dt, velocity.y * dt);
-        transform.Rotate(0, 0, angularVelocity * dt);
+        transform.Rotate(0, 0, angularVelocity * dt * Mathf.Rad2Deg);
     }
 
     public void ApplyForce(Vector2 force)

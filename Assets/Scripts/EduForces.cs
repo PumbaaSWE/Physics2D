@@ -94,13 +94,13 @@ public class EduForces : MonoBehaviour
         if (dy >= r)
         {
             //no floating force, we above the surface
-            Debug.Log("Fully above dy = " + dy);
+            //Debug.Log("Fully above dy = " + dy);
             return;
         }
         else if (dy <= -r)
         {
             //we are fully submerged
-            Debug.Log("Fully submerged dy = " + dy);
+            //Debug.Log("Fully submerged dy = " + dy);
             //return;
         }
         else
@@ -115,7 +115,7 @@ public class EduForces : MonoBehaviour
             }
         }
         //Debug.Log(V / Mathy.AreaOfCircle(r) + " Area submerged");
-        Debug.DrawLine(rb.transform.position, rb.transform.position.WithY(fluidLevel), Color.magenta);
+        //Debug.DrawLine(rb.transform.position, rb.transform.position.WithY(fluidLevel), Color.magenta);
         //Fl = Vobj * pfluid * g;
         Vector2 F = V * fluidDencity * -gravity;
         rb.ApplyForce(F);
@@ -128,6 +128,12 @@ public class EduForces : MonoBehaviour
 
     private void ApplyWind(EduRigidBody rb)
     {
-        rb.ApplyForce(wind);
+
+        EduWindZone[] wz = FindObjectsOfType<EduWindZone>();
+        for (int i = 0; i < wz.Length; i++)
+        {
+            rb.ApplyForce(wz[i].Sample(rb.transform.position));
+        }
+       
     }
 }

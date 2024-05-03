@@ -68,7 +68,7 @@ public class EduCollisionDetection : MonoBehaviour
 
     public bool CircleCircleCollision(EduCircleCollider c1, EduCircleCollider c2, out EduCollision collision)
     {
-        Vector2 d = c2.transform.position - c1.transform.position; //relative position -> d for delta
+        Vector2 d = c2.transform.position - c1.transform.position; //relative position -> d for delta A->B
         float sqrDist = Vector2.SqrMagnitude(d);
         float r = c1.ScaledRadius() + c2.ScaledRadius();
 
@@ -76,10 +76,10 @@ public class EduCollisionDetection : MonoBehaviour
         {  
             collision = new EduCollision();
             float dist = Mathf.Sqrt(sqrDist);
-            collision.Position = d / 2; // in relation to c1... (c1+c2)/2 for world pos
+            collision.Position = (c2.transform.position + c1.transform.position) / 2; // world pos
 
             if (Mathf.Abs(dist) < 0.0001f) collision.Normal = Vector2.up;
-            else collision.Normal = d / dist; //d.normalized;
+            else collision.Normal = d / dist; //d.normalized; 
 
             collision.Depth = r - dist; //amount of overlap
             return true;
@@ -91,7 +91,7 @@ public class EduCollisionDetection : MonoBehaviour
     public bool CircleLineCollision(EduCircleCollider c, EduLineCollider l, out EduCollision collision)
     {
         Vector2 cp = l.ClosestPoint(c.Center);
-        Vector2 d = c.Center - cp;
+        Vector2 d = c.Center - cp; //line->ball
 
         //Debug.DrawLine(c.Center, cp, Color.magenta);
 
@@ -103,7 +103,7 @@ public class EduCollisionDetection : MonoBehaviour
             collision = new EduCollision();
             float dist = Mathf.Sqrt(sqrDist);
             collision.Position = cp;
-            collision.Normal = d / dist; //d.normalized;
+            collision.Normal = d / dist; //d.normalized; normal is line->ball 
             collision.Depth = c.ScaledRadius() - dist; //amount of overlap
             return true;
         }
