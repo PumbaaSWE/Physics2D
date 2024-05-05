@@ -22,6 +22,29 @@ public static class Mathy
         return Mathf.PI * r * r;
     }
 
+    public static Vector2 ClosestPoint(Vector2 p, Vector2 p1, Vector2 p2)
+    {
+        Vector2 d = p2 - p1;
+        float t = Vector2.Dot(p - p1, d);
+        if (t <= 0.0f)
+        {
+            return p1;
+        }
+        else
+        {
+            float denom = Vector2.Dot(d, d);
+            if (t >= denom)
+            {
+                return p2;
+            }
+            else
+            {
+                t /= denom;
+                return p1 + t * d;
+            }
+        }
+    }
+
     public static Vector3 ToVec3(this Vector2 v, float z = 0)
     {
         return new Vector3(v.x, v.y, z);
