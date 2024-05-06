@@ -86,4 +86,14 @@ public static class Mathy
         return new Vector2(-s * a.y, s * a.x);
     }
 
+
+    public static Vector2 Min(Vector2 a, Vector2 b)
+    {
+        return new Vector2(Mathf.Min(a.x, b.x), Mathf.Min(a.y, b.y));
+    }
+
+    public static Vector2 Max(Vector2 a, Vector2 b)
+    {
+        return new Vector2(Mathf.Max(a.x, b.x), Mathf.Max(a.y, b.y));
+    }
 }

@@ -613,7 +613,7 @@ PrefabInstance:
     - target: {fileID: 5614671307431491262, guid: cf493b35ed45cdb43946ed9bd67d512c, type: 3}
       propertyPath: hull
       value: 
-      objectReference: {fileID: 6064105061803758857, guid: 241ef0f43ffc5ef41b3abf474446a2d1, type: 3}
+      objectReference: {fileID: 6442257791487085772, guid: 64aba37a757d48e4c91bdd2cf0c35909, type: 3}
     - target: {fileID: 6553800025820696144, guid: cf493b35ed45cdb43946ed9bd67d512c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

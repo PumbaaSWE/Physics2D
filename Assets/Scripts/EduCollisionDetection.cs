@@ -171,7 +171,8 @@ public class EduCollisionDetection : MonoBehaviour
         Vector2 direction = axis.normalized;
         return Vector2.Dot(axis, center - direction * radius);
 
-        //Dot(axis, center - direction * radius) is the real formula... I made this one up myself to avoid normalizing the axis 
+        //Dot(axis, center - direction * radius) is the real formula... I made this one up myself to avoid normalizing the axis... doesnt work
+        //Dot(axis, center - direction * radius) is the real formula... I made this one up myself to avoid normalizing the axis... doesnt work
 
         //float d = Vector2.Dot(axis, center);
         //return d - Mathf.Sign(d) * radius;

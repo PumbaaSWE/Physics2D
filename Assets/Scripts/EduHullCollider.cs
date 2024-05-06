@@ -199,6 +199,7 @@ public class EduHullCollider : MonoBehaviour
 
     private void OnDrawGizmos()
     {
+        if (vertices == null) return;
         if (vertices.Length < 2) return;
         Gizmos.color = Color.green;
         //Gizmos.DrawLineStrip(vertices, true);
@@ -210,5 +211,16 @@ public class EduHullCollider : MonoBehaviour
             p0 = p1;
         }
         Gizmos.DrawLine(Center, transform.TransformPoint(vertices[0]));
+    }
+
+    internal void SetHull(Vector2[] verts)
+    {
+        vertices = verts;
+        world = new Vector2[vertices.Length];
+        TryComputeMassAndInertia();
+        if (TryGetComponent(out MeshFilter filter))
+        {
+            filter.sharedMesh = HullUtils.GetMesh(verts);
+        }
     }
 }

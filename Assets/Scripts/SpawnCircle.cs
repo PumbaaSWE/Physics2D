@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 [RequireComponent(typeof(LineRenderer))]
@@ -91,19 +92,35 @@ public class SpawnCircle : MonoBehaviour
         Vector3 point = cam.ScreenToWorldPoint(Input.mousePosition).WithZ();
         if (Input.GetMouseButtonDown(0))
         {
-            if (points.Count > 2 && Vector3.Distance(point, points[0]) < 0.5f)
+            if (points.Count > 2 && Vector3.Distance(point, points[0]) < minLength)
             {
-                //Debug.Log("Create Polygon");
-                EduHullCollider h = Instantiate(hull);
-                List<Vector2> points2d = new List<Vector2>(); //annoying!!!!
-                for (int i = 0; i < points.Count; i++)
+                //Debug.Log("Try Create Polygon");
+                int winding = HullUtils.CheckWinding(points);
+                if (winding != HullUtils.DEGENERATE)
                 {
-                    points2d.Add(points[i]); 
+                    //Debug.Log("Create Hull");
+                    Vector2[] verts = new Vector2[points.Count];
+                    for (int i = 0; i < points.Count; i++)
+                    {
+                        verts[i] = points[i];
+                    }
+                    if(winding == HullUtils.CCW)
+                    {
+                        //Array.Reverse(verts);
+                        //Debug.Log(" winding Counter CW " + winding);
+                    }
+                    else
+                    {
+                        Array.Reverse(verts);
+                       // Debug.Log("winding CW " + winding);
+                    }
+                    Vector2 c = HullUtils.Recenter(verts);
+
+                    EduHullCollider h = Instantiate(hull, c, Quaternion.identity);
+                    h.SetHull(verts);
                 }
-                if (h.CreateFromList(points2d)) //this should be checked first... 
-                {
-                    Debug.Log("Created Polygon Successfully");
-                }
+
+
             }
             else
             {
