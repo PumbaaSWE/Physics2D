@@ -9,7 +9,7 @@ public class EduCircleCollider : MonoBehaviour
     public Vector2 Center => transform.position;
     
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         if(TryGetComponent(out EduRigidBody rb))
         {

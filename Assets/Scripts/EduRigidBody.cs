@@ -64,7 +64,7 @@ public class EduRigidBody : MonoBehaviour
         angularVelocity += accumulatedTorques / inertia * dt; // w = w0 + at; och a = T/I;
 
         //compute positions and rotations
-        transform.position = transform.position + new Vector3(velocity.x * dt, velocity.y * dt);
+        transform.position = transform.position + new Vector3(velocity.x * dt, velocity.y * dt); //s = s0 + v*t
         transform.Rotate(0, 0, angularVelocity * dt * Mathf.Rad2Deg);
     }
 
@@ -78,7 +78,7 @@ public class EduRigidBody : MonoBehaviour
     {
         Vector2 d = (Vector2)transform.position - origin;
         float l = d.magnitude;
-        float actualForce = Mathf.Lerp(0, force, l / radius);      
+        float actualForce = Mathf.Lerp(force, 0, l / radius);      
         accumulatedForces += actualForce * (d / l);
     }
 

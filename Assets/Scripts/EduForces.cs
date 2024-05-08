@@ -23,7 +23,8 @@ public class EduForces : MonoBehaviour
     public float fluidLevel = 0;
     private LineRenderer lineRenderer;
 
-
+    //[Header("Explosion Settings")]
+    //public bool UseExplosion;
 
     // Start is called before the first frame update
     void Start()
@@ -96,7 +97,10 @@ public class EduForces : MonoBehaviour
     {
         //
         float dy = rb.transform.position.y - fluidLevel;
-        float r = rb.GetComponent<EduCircleCollider>().ScaledRadius(); // eh..
+        EduCircleCollider cc = rb.GetComponent<EduCircleCollider>();
+        if (cc == null) return;
+
+        float r = cc.ScaledRadius(); // eh..
         float V = Mathy.AreaOfCircle(r); 
         if (dy >= r)
         {

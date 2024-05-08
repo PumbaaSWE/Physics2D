@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.U2D;
 
@@ -152,8 +153,38 @@ public class EduHullCollider : MonoBehaviour
     {
         if (TryGetComponent(out EduRigidBody rb))
         {
-            rb.mass = 1;
-            rb.inertia = 1;
+            Vector2 c = Vector2.zero;
+            float a = 0;
+            for (int i = 0; i < vertices.Length; i++)
+            {
+                Vector2 e0 = vertices[i] - c;
+                Vector2 e1 = vertices[(i+1) % vertices.Length] - c;
+                a += Mathy.Cross(e0, e1) / 2;
+            }
+
+
+            rb.mass = a * dencity;
+
+
+            Vector2 min = new Vector2(float.MaxValue, float.MaxValue);
+            Vector2 max = new Vector2(float.MinValue, float.MinValue);
+            for (int i = 0; i < vertices.Length; i++)
+            {
+                Vector2 v = vertices[i];
+                min = Mathy.Min(v, min);
+                max = Mathy.Max(v, max);
+            }
+
+            //compute uvs
+            float width = max.x - min.x;
+            float height = max.y - min.y;
+
+
+
+
+
+
+            rb.inertia = rb.mass * (width*width + height*height) / 12; // approx rectangle
         }
     }
     

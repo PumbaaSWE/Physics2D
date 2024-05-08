@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 [RequireComponent(typeof(LineRenderer))]
 public class SpawnCircle : MonoBehaviour
@@ -11,6 +12,9 @@ public class SpawnCircle : MonoBehaviour
     public EduHullCollider hull;
     Vector3 posB;
     Vector3 posA;
+
+    public ParticleSystem particlePrefab;
+    public EduExplosionObject explosionObject;
 
     LineRenderer lineRenderer;
     Camera cam;
@@ -47,6 +51,27 @@ public class SpawnCircle : MonoBehaviour
         else
         {
             SpawnCirclesAndLines();
+        }
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            EduRigidBody[] rbs = FindObjectsOfType<EduRigidBody>();
+            Vector3 pos = cam.ScreenToWorldPoint(Input.mousePosition).WithZ();
+            if(particlePrefab)Instantiate(particlePrefab, pos, Quaternion.identity);
+            for (int i = 0; i < rbs.Length; i++)
+            {
+                rbs[i].ApplyExplosionForce(500, pos, 2.05f);
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            EduRigidBody[] rbs = FindObjectsOfType<EduRigidBody>();
+            Vector3 pos = cam.ScreenToWorldPoint(Input.mousePosition).WithZ();
+            if (explosionObject)
+            {
+                EduExplosionObject e = Instantiate(explosionObject, pos, Quaternion.identity);
+                e.DestroyOnExplode = true;
+            }
         }
 
     }
@@ -100,19 +125,26 @@ public class SpawnCircle : MonoBehaviour
                 {
                     //Debug.Log("Create Hull");
                     Vector2[] verts = new Vector2[points.Count];
-                    for (int i = 0; i < points.Count; i++)
+                    //for (int i = 0; i < points.Count; i++)
+                    //{
+                    //    verts[i] = points[i];
+                    //}
+                    verts[0] = points[0];
+                    if (winding == HullUtils.CCW)
                     {
-                        verts[i] = points[i];
-                    }
-                    if(winding == HullUtils.CCW)
-                    {
-                        //Array.Reverse(verts);
-                        //Debug.Log(" winding Counter CW " + winding);
+                        for (int i = 1; i < points.Count; i++)
+                        {
+                            verts[i] = points[i];
+                        }
                     }
                     else
                     {
-                        Array.Reverse(verts);
-                       // Debug.Log("winding CW " + winding);
+                        //Array.Reverse(verts);
+                        for (int i = 1; i < points.Count; i++)
+                        {
+                            verts[i] = points[points.Count - i];
+                        }
+                        // Debug.Log("winding CW " + winding);
                     }
                     Vector2 c = HullUtils.Recenter(verts);
 

@@ -361,7 +361,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.3, y: -3.23, z: 0}
-  m_LocalScale: {x: 6.86, y: 1, z: 1}
+  m_LocalScale: {x: 21.07, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -614,6 +614,14 @@ PrefabInstance:
       propertyPath: hull
       value: 
       objectReference: {fileID: 6442257791487085772, guid: 64aba37a757d48e4c91bdd2cf0c35909, type: 3}
+    - target: {fileID: 5614671307431491262, guid: cf493b35ed45cdb43946ed9bd67d512c, type: 3}
+      propertyPath: particlePrefab
+      value: 
+      objectReference: {fileID: 2378533256791869273, guid: 51cd5bfbe2593914cbb3ee05d0eb32af, type: 3}
+    - target: {fileID: 5614671307431491262, guid: cf493b35ed45cdb43946ed9bd67d512c, type: 3}
+      propertyPath: explosionObject
+      value: 
+      objectReference: {fileID: 7778666099019762997, guid: c7b2d18be0501954fbb916aecd3bd79e, type: 3}
     - target: {fileID: 6553800025820696144, guid: cf493b35ed45cdb43946ed9bd67d512c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
