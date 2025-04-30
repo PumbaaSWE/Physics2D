@@ -74,6 +74,12 @@ public class SpawnCircle : MonoBehaviour
             }
         }
 
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            EduForces ef = FindFirstObjectByType<EduForces>();
+            if(ef) ef.UseGravity = !ef.UseGravity;
+        }
+
     }
 
     private void SpawnCirclesAndLines()
